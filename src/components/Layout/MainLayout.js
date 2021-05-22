@@ -25,7 +25,14 @@ export const MainLayout = ({
             <GoBack />
           </button>
         )}
-        {headerText}
+        <p
+          style={{
+            width: '200px',
+            lineHeight: '25px',
+          }}
+        >
+          {headerText}
+        </p>
         {withCloseButton && <></>}
       </header>
       <div className='pt-[67px]'>{children}</div>
