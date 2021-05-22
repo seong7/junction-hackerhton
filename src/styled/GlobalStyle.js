@@ -23,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     overflow: auto;
   }
+
+  #__next {
+    height: 100%;
+  }
   
   a, a:link, a:visited, a:hover, a:active {
     color: inherit;

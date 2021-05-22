@@ -1,27 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = ({
-  text,
-  className,
-  type,
-  variant = 'filled', // 'outlined'
-  disabled = false,
-  size = 'lg', // 'sm'
-  style,
-  onClick,
-}) => (
-  <StyledButton
-    className={className}
-    size={size}
-    disabled={disabled}
-    type={type}
-    style={style}
-    onClick={onClick}
-    variant={variant}
-  >
-    {text}
-  </StyledButton>
+export const Button = React.memo(
+  ({
+    text,
+    className,
+    type,
+    variant = 'filled', // 'outlined'
+    disabled = false,
+    size = 'lg', // 'sm'
+    style,
+    onClick,
+  }) => (
+    <StyledButton
+      className={className}
+      size={size}
+      disabled={disabled}
+      type={type}
+      style={style}
+      onClick={onClick}
+      variant={variant}
+    >
+      {text}
+    </StyledButton>
+  ),
 );
 
 const StyledButton = styled.button`

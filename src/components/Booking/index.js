@@ -1,20 +1,42 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Button } from '../../elements/Button/Button';
+import { AutoComplete } from './AutoComplete/AutoComplete';
+import { FooterWrapper } from '../Layout/FooterWrapper';
 
 export const Booking = () => {
-  const inputRef = useRef();
-  console.log();
+  const [text, setText] = useState('');
+  const [shouldShowAutocomplete, setShouldShowAutocomplete] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-  });
+  }, []);
+
+  const changeText = (e) => {
+    setText(e.target.value);
+    if (!shouldShowAutocomplete) {
+      setShouldShowAutocomplete(true);
+      setIsSelected(false);
+    } else if (e.target.value === '') setShouldShowAutocomplete(false);
+  };
+
+  const handleClickAutocomplete = useCallback((e) => {
+    console.log(e.target.innerText);
+    setText(e.target.innerText);
+    setShouldShowAutocomplete(false);
+    setIsSelected(true);
+  }, []);
+
   return (
     <>
-      <div className='w-[100vw] h-[100[vh] flex justify-center items-center'>
-        <form className='felx justify-center items-center w-[291px] h-[100%]'>
-          <label htmlFor='bus-stop-input' style={{ color: '#256B93', fontSize: '20px' }}>
+      <main className='w-[100%] h-[100%] flex justify-center items-center fade-in'>
+        <form className='flex flex-col justify-center items-center w-[291px] h-[100%]'>
+          <label
+            htmlFor='bus-stop-input'
+            style={{ color: '#256B93', fontSize: '20px', position: 'relative', top: '-50px' }}
+          >
             출발하는 정류장을 찾아주세요.
             <input
-              ref={inputRef}
               id='bus-stop-input'
               style={{
                 color: '#256B93',
@@ -26,11 +48,26 @@ export const Booking = () => {
                 marginTop: '14px',
                 padding: '10px',
               }}
+              placeholder='어디서 타시나요?'
+              value={text}
+              onChange={changeText}
+              autoComplete='off'
             />
+            {shouldShowAutocomplete && (
+              <AutoComplete typedText={text} onClick={handleClickAutocomplete} />
+            )}
           </label>
-          <Button type='submit' text='검색' onClick={handleSubmit} />
+          <FooterWrapper>
+            <Button
+              type='submit'
+              text='검색'
+              onClick={handleSubmit}
+              className='fade-in'
+              disabled={!isSelected}
+            />
+          </FooterWrapper>
         </form>
-      </div>
+      </main>
     </>
   );
 };

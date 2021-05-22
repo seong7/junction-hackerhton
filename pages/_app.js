@@ -12,6 +12,7 @@ function App({ Component, pageProps }) {
       <Head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+        <title>OurBus</title>
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
