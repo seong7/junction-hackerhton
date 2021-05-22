@@ -1,9 +1,10 @@
 import BusIcon from '../public/BusIcon';
 import OurBusText from '../public/OurBusText';
 import Line from '../public/Line';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../pages/api/base';
+import MainBusIcon from '../public/MainBusIcon';
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -62,7 +63,7 @@ const SignIn = () => {
                 <OurBusText />
               </div>
               <div style={{ marginLeft: '5px' }}>
-                <BusIcon />
+                <MainBusIcon />
               </div>
             </div>
             <div style={{ position: 'relative', top: '-9px', zIndex: '-1' }}>
