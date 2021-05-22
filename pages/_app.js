@@ -6,6 +6,7 @@ import BusProvider from '../src/context/busContext/BusContext';
 import 'tailwindcss/tailwind.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/styles/sign-up.css';
+import '../src/styles/font-family.css';
 
 function App({ Component, pageProps }) {
   return (
