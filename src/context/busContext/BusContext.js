@@ -7,6 +7,7 @@ import Timer from '../../utills/Timer';
 export const BusContext = createContext({});
 
 const BusProvider = ({ children }) => {
+  const [stationId, setStationId] = useState('');
   const [station, setStation] = useState('');
   const [bus, setBus] = useState([]);
 
@@ -41,6 +42,8 @@ const BusProvider = ({ children }) => {
   };
 
   const store = {
+    stationId,
+    setStationId,
     station,
     setStation,
     bus,
