@@ -49,7 +49,7 @@ const Evaluation = ({ busId = 14 }) => {
       }
     } catch (error) {
       console.log(error);
-      if (error?.response?.status === 401) {
+      if (error.response.status === 401) {
         alert('권한이 존재하지 않습니다');
         localStorage.removeItem('jwt');
         location.href = '/';
@@ -89,19 +89,19 @@ const Evaluation = ({ busId = 14 }) => {
           </h1>
           <div style={{ display: 'flex' }}>
             <div onClick={handleChangeRate} style={mr2} data-value={1}>
-              <Star isFill={form.point > 0 ? true : false} />
+              <Star isFill={form.point > 0} />
             </div>
             <div onClick={handleChangeRate} style={mr2} data-value={2}>
-              <Star isFill={form.point > 1 ? true : false} />
+              <Star isFill={form.point > 1} />
             </div>
             <div onClick={handleChangeRate} style={mr2} data-value={3}>
-              <Star isFill={form.point > 2 ? true : false} />
+              <Star isFill={form.point > 2} />
             </div>
             <div onClick={handleChangeRate} style={mr2} data-value={4}>
-              <Star isFill={form.point > 3 ? true : false} />
+              <Star isFill={form.point > 3} />
             </div>
             <div onClick={handleChangeRate} style={mr2} data-value={5}>
-              <Star isFill={form.point > 4 ? true : false} />
+              <Star isFill={form.point > 4} />
             </div>
           </div>
         </div>
@@ -192,19 +192,19 @@ const Evaluation = ({ busId = 14 }) => {
             }}
           >
             <div onClick={handleChangeSpeed} style={mr2} data-value={1}>
-              <Star isFill={form.speedPoint > 0 ? true : false} />
+              <Star isFill={form.speedPoint > 0} />
             </div>
             <div onClick={handleChangeSpeed} style={mr2} data-value={2}>
-              <Star isFill={form.speedPoint > 1 ? true : false} />
+              <Star isFill={form.speedPoint > 1} />
             </div>
             <div onClick={handleChangeSpeed} style={mr2} data-value={3}>
-              <Star isFill={form.speedPoint > 2 ? true : false} />
+              <Star isFill={form.speedPoint > 2} />
             </div>
             <div onClick={handleChangeSpeed} style={mr2} data-value={4}>
-              <Star isFill={form.speedPoint > 3 ? true : false} />
+              <Star isFill={form.speedPoint > 3} />
             </div>
             <div onClick={handleChangeSpeed} style={mr2} data-value={5}>
-              <Star isFill={form.speedPoint > 4 ? true : false} />
+              <Star isFill={form.speedPoint > 4} />
             </div>
           </div>
           <h1
@@ -228,19 +228,19 @@ const Evaluation = ({ busId = 14 }) => {
             }}
           >
             <div onClick={handleChangeKind} style={mr2} data-value={1}>
-              <Star isFill={form.kindPoint > 0 ? true : false} />
+              <Star isFill={form.kindPoint > 0} />
             </div>
             <div onClick={handleChangeKind} style={mr2} data-value={2}>
-              <Star isFill={form.kindPoint > 1 ? true : false} />
+              <Star isFill={form.kindPoint > 1} />
             </div>
             <div onClick={handleChangeKind} style={mr2} data-value={3}>
-              <Star isFill={form.kindPoint > 2 ? true : false} />
+              <Star isFill={form.kindPoint > 2} />
             </div>
             <div onClick={handleChangeKind} style={mr2} data-value={4}>
-              <Star isFill={form.kindPoint > 3 ? true : false} />
+              <Star isFill={form.kindPoint > 3} />
             </div>
             <div onClick={handleChangeKind} style={mr2} data-value={5}>
-              <Star isFill={form.kindPoint > 4 ? true : false} />
+              <Star isFill={form.kindPoint > 4} />
             </div>
           </div>
 
