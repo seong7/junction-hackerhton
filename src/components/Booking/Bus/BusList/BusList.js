@@ -25,7 +25,16 @@ export const BusList = ({ busList, setSelectedBusId, selectedBusId }) => {
                 <BusIcon color={iconColors[idx % iconColors.length]} />
                 <p className='ml-[10px]'>{bus.name}</p>
               </div>
-              {/* {bus.} */}
+              <div>
+                <p
+                  style={{
+                    color: '#000',
+                    fontSize: '16px',
+                  }}
+                >
+                  {bus.leftMin} 분 후 도착 ({bus.leftStation} 정류장 전)
+                </p>
+              </div>
             </div>
           </label>
           <input
