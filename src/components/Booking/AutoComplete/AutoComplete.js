@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
+import config from '../../../../config/config';
 
 export const AutoComplete = ({ typedText, className, onClick }) => {
   const [wordList, setWordList] = useState([]);
@@ -11,14 +12,11 @@ export const AutoComplete = ({ typedText, className, onClick }) => {
 
     if (typedText !== '') {
       try {
-        const res = await axios.get(
-          `http://192.168.0.4:3000/api/bus/station?queryString=${typedText}`,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
+        const res = await axios.get(`${config.BASEURL}/api/bus/station?queryString=${typedText}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
           },
-        );
+        });
         // console.log(res);
         setWordList(res.data);
       } catch (e) {

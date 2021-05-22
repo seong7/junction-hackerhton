@@ -1,15 +1,31 @@
 import React, { useCallback, useRef, useState } from 'react';
+import axios from 'axios';
+import Router from 'next/router';
 import { Button } from '../../elements/Button/Button';
 import { AutoComplete } from './AutoComplete/AutoComplete';
 import { FooterWrapper } from '../Layout/FooterWrapper';
+import config from '../../../config/config';
 
 export const Booking = () => {
   const [text, setText] = useState('');
   const [shouldShowAutocomplete, setShouldShowAutocomplete] = useState(true);
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+    const jwt = window.localStorage.getItem('jwt');
+    if (jwt === null) await Router.replace('/');
+
+    try {
+      const res = await axios.get(`${config.BASEURL}/api/bus?stationName=${text}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
   }, []);
 
   const changeText = (e) => {
@@ -21,7 +37,6 @@ export const Booking = () => {
   };
 
   const handleClickAutocomplete = useCallback((e) => {
-    console.log(e.target.innerText);
     setText(e.target.innerText);
     setShouldShowAutocomplete(false);
     setIsSelected(true);
