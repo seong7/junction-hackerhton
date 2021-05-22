@@ -22,7 +22,7 @@ export const Booking = () => {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      console.log(text);
+      // console.log(text);
       const jwt = window.localStorage.getItem('jwt');
 
       try {
@@ -31,8 +31,9 @@ export const Booking = () => {
             Authorization: `Bearer ${jwt}`,
           },
         });
-        // console.log(res);
+        // console.log('station:::', res);
         busContext.setStation(text);
+        busContext.setStationId(res.data[0].stationId);
         Router.push('/booking/bus');
       } catch (e) {
         console.error(e);

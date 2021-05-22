@@ -14,6 +14,7 @@ export const Bus = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const busContext = useContext(BusContext);
+
   useEffect(() => {
     busContext.startGettingData();
     // componentWillUnmount
@@ -21,7 +22,6 @@ export const Bus = () => {
       busContext.stopGettingData();
     };
   }, []);
-  console.log(busContext.station);
 
   const openConfirmModal = useCallback(() => {
     setButtonClicked(true);
@@ -41,7 +41,7 @@ export const Bus = () => {
 
     try {
       const res = await axios.post(
-        `${config.BASEURL}/api/bus/${selectedBusId}/getOn`,
+        `${config.BASEURL}/api/bus/${selectedBusId}/${busContext.stationId}/getOn`,
         {},
         {
           headers: {
@@ -54,7 +54,7 @@ export const Bus = () => {
     } catch (e) {
       console.error(e);
     }
-  }, [selectedBusId]);
+  }, [selectedBusId, busContext.stationId]);
 
   return (
     <MainLayout
