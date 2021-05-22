@@ -10,8 +10,19 @@
 .fade-in {
   animation: fadeInAnimation ease 1s;
 }
+.fade-in-fast {
+  animation: fadeInAnimation ease 0.5s;
+}
 
 .placeholder::placeholder {
   color: #256b93;
   font-size: 20px;
+}
+
+.top-move:hover {
+  top: -300px;
+}
+
+.transform {
+  transition: top 2s ease-in-out;
 }
