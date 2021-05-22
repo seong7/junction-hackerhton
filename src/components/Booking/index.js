@@ -1,32 +1,44 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import { Button } from '../../elements/Button/Button';
 import { AutoComplete } from './AutoComplete/AutoComplete';
 import { FooterWrapper } from '../Layout/FooterWrapper';
+import { BusContext } from '../../context/busContext/BusContext';
 import config from '../../../config/config';
 
 export const Booking = () => {
+  const busContext = useContext(BusContext);
   const [text, setText] = useState('');
   const [shouldShowAutocomplete, setShouldShowAutocomplete] = useState(true);
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
+  useEffect(() => {
     const jwt = window.localStorage.getItem('jwt');
-    if (jwt === null) await Router.replace('/');
+    if (jwt === null) Router.replace('/');
+  });
 
-    try {
-      const res = await axios.get(`${config.BASEURL}/api/bus?stationName=${text}`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-      console.log(res);
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      console.log(text);
+      const jwt = window.localStorage.getItem('jwt');
+
+      try {
+        const res = await axios.get(`${config.BASEURL}/api/bus?stationName=${text}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+        // console.log(res);
+        busContext.setStation(text);
+        Router.push('/booking/bus');
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [text],
+  );
 
   const changeText = (e) => {
     setText(e.target.value);

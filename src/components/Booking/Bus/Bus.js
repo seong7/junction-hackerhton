@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MainLayout } from '../../Layout/MainLayout';
-import { FooterWrapper } from '../../Layout/FooterWrapper';
 import { Button } from '../../../elements/Button/Button';
+import { BusContext } from '../../../context/busContext/BusContext';
+import BusIcon from '../../../../public/BusIcon';
 
 export const Bus = () => {
-  console.log();
+  const iconColors = ['blue', 'green', 'red', 'yellow'];
+  const busContext = useContext(BusContext);
+  console.log(busContext.station);
   return (
-    <MainLayout headerText='낙성대역' withGoBackButton>
-      <div className=''>내용</div>
-      <FooterWrapper>
-        <Button type='button' text='탑승하기' />
-      </FooterWrapper>
+    <MainLayout
+      headerText={busContext.station}
+      withHeaderBorder
+      withGoBackButton
+      footer={
+        <>
+          <Button type='button' text='탑승하기' />
+        </>
+      }
+    >
+      <div className=''>test</div>
     </MainLayout>
   );
 };
