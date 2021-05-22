@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { GlobalStyle } from '../src/styled/GlobalStyle';
+import BusProvider from '../src/context/busContext/BusContext';
 
 import 'tailwindcss/tailwind.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +17,9 @@ function App({ Component, pageProps }) {
         <title>OurBus</title>
       </Head>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <BusProvider>
+        <Component {...pageProps} />
+      </BusProvider>
     </>
   );
 }
