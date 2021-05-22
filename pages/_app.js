@@ -4,6 +4,7 @@ import { GlobalStyle } from '../src/styled/GlobalStyle';
 
 import 'tailwindcss/tailwind.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../src/styles/sign-up.css';
 
 function App({ Component, pageProps }) {
   return (
