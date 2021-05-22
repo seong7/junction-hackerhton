@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useContext, useState } from 'react';
+import React, { useCallback, useEffect, useContext, useState, useRef } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import { Button } from '../../elements/Button/Button';
@@ -8,6 +8,7 @@ import { BusContext } from '../../context/busContext/BusContext';
 import config from '../../../config/config';
 
 export const Booking = () => {
+  const inputRef = useRef();
   const busContext = useContext(BusContext);
   const [text, setText] = useState('');
   const [shouldShowAutocomplete, setShouldShowAutocomplete] = useState(true);
@@ -48,11 +49,15 @@ export const Booking = () => {
     } else if (e.target.value === '') setShouldShowAutocomplete(false);
   };
 
-  const handleClickAutocomplete = useCallback((e) => {
-    setText(e.target.innerText);
-    setShouldShowAutocomplete(false);
-    setIsSelected(true);
-  }, []);
+  const handleClickAutocomplete = useCallback(
+    (e) => {
+      setText(e.target.innerText);
+      setShouldShowAutocomplete(false);
+      setIsSelected(true);
+      inputRef.current.blur();
+    },
+    [inputRef],
+  );
 
   return (
     <>
@@ -75,6 +80,7 @@ export const Booking = () => {
                 marginTop: '14px',
                 padding: '10px',
               }}
+              ref={inputRef}
               placeholder='어디서 타시나요?'
               value={text}
               onChange={changeText}
