@@ -1,42 +1,52 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Router from 'next/router';
 
 export const AutoComplete = ({ typedText, className, onClick }) => {
-  const [isIncluding, setIsIncluding] = useState(false);
+  const [wordList, setWordList] = useState([]);
 
-  const nakseongList = [
-    '낙성대역',
-    '낙성대입구',
-    '낙성대현대아파트',
-    '낙성대동시장입구',
-    '낙성대동',
-    '낙성대공원.영어마을',
-  ];
+  useEffect(async () => {
+    const jwt = window.localStorage.getItem('jwt');
+    if (jwt === null) await Router.replace('/');
 
-  useEffect(() => {
-    if (typedText.length >= 1) {
-      setIsIncluding(nakseongList.some((c) => c.includes(typedText)));
+    if (typedText !== '') {
+      try {
+        const res = await axios.get(
+          `http://192.168.0.4:3000/api/bus/station?queryString=${typedText}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          },
+        );
+        // console.log(res);
+        setWordList(res.data);
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [typedText]);
 
   const mergedClassName = `first:rounded-t-[10px] last:rounded-t-[10px] ${className}`;
   return (
     <>
-      {isIncluding && (
+      {wordList.length > 0 && (
         <ul
           style={{
             border: '3px solid #BDBDBD',
             borderRadius: '10px',
             position: 'absolute',
             width: '291px',
+            maxHeight: '300px',
+            overflow: 'hidden',
           }}
           className={mergedClassName}
         >
-          {nakseongList.map((c, idx) => {
-            const text = `${c} `;
-            if (text.includes(typedText))
+          {wordList.map((cur, idx) => {
+            if (idx < 5) {
               return (
                 <li
-                  key={idx}
+                  key={cur.id}
                   style={{
                     borderBottom: '1px solid #BDBDBD',
                   }}
@@ -54,10 +64,11 @@ export const AutoComplete = ({ typedText, className, onClick }) => {
                       textAlign: 'start',
                     }}
                   >
-                    {c}
+                    <p className='truncate'>{cur.name}</p>
                   </button>
                 </li>
               );
+            }
             return undefined;
           })}
         </ul>
