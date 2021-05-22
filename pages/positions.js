@@ -46,7 +46,7 @@ const positions = () => {
 
   const handleGetOff = async () => {
     const token = localStorage.getItem('jwt');
-    const res = await axios.delete(`${baseURL}/bus/1/getOff`, {
+    const res = await axios.delete(`${baseURL}/bus/1/${next.id}/getOff`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
