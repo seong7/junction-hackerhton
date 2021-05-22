@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'SeoulNamsan';
+  font-weight: 500;
+  src: url('../fonts/SeoulNamsan/08SeoulNamsanL_0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SeoulNamsan';
+  font-weight: 500;
+  src: url('../fonts/SeoulNamsan/08SeoulNamsanM_0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SeoulNamsan';
+  font-weight: 600;
+  src: url('../fonts/SeoulNamsan/08SeoulNamsanvert_0.ttf') format('truetype');
+}

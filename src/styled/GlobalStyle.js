@@ -17,8 +17,9 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 13px;
     }
   `}
+
   html, body {
-    font-family: Noto Sans, sans-serif;
+    font-family: SeoulNamsan !important;
     width: 100%;
     height: 100%;
     overflow: auto;
