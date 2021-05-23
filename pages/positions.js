@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Router from 'next/router';
 import { MainLayout } from '../src/components/Layout/MainLayout';
 import { Button } from '../src/elements/Button/Button';
-import axios from 'axios';
 import { baseURL } from './api/base';
 import Ellipse from '../public/Ellipse';
 import BusIcon from '../public/BusIcon';
@@ -21,8 +22,6 @@ const positions = () => {
     const index = data.findIndex((value) => {
       if (value.currentLocation === true) {
         return value;
-      } else {
-        return;
       }
     });
     console.log(index);
@@ -52,7 +51,7 @@ const positions = () => {
       },
     });
     if (res.status === 200 || res.status === 201) {
-      location.href = '/evaluation';
+      Router.replace('/evaluation');
     }
   };
 
@@ -91,28 +90,24 @@ const positions = () => {
             key={el.id}
             data-current={el.currentLocation}
           >
-            {
-              <div
-                style={{
-                  position: 'absolute',
-                  left: '-27px',
-                  display: el.currentLocation ? '' : 'none',
-                }}
-              >
-                <BusIcon color='blue' />
-              </div>
-            }
-            {
-              <div
-                style={{
-                  position: 'absolute',
-                  left: '-9px',
-                  display: el.currentLocation ? '' : 'none',
-                }}
-              >
-                <Ellipse />
-              </div>
-            }
+            <div
+              style={{
+                position: 'absolute',
+                left: '-27px',
+                display: el.currentLocation ? '' : 'none',
+              }}
+            >
+              <BusIcon color='blue' />
+            </div>
+            <div
+              style={{
+                position: 'absolute',
+                left: '-9px',
+                display: el.currentLocation ? '' : 'none',
+              }}
+            >
+              <Ellipse />
+            </div>
             {el.name}
           </div>
         ))}
@@ -146,7 +141,7 @@ const positions = () => {
           <span style={{ color: '#256B93', textAlign: 'center', fontSize: '22px' }}>
             {`${next.name}에서`}
             <br />
-            {'내리실 건가요?'}
+            내리실 건가요?
           </span>
           <span style={{ color: '#256B93', fontSize: '16px', marginTop: '40px' }}>
             정확한 정보를 기사님께 전달드릴게요!

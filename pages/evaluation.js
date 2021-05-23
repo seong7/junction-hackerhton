@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Router from 'next/router';
 import Close from '../public/Close';
 import GoBack from '../public/GoBack';
 import Star from '../public/Star';
@@ -45,21 +46,21 @@ const Evaluation = ({ busId = 14 }) => {
       });
       if (res.status === 200 || res.status === 201) {
         alert('평가에 참여해주셔서 감사합니다.');
-        location.href = '/';
+        Router.replace('/');
       }
     } catch (error) {
       console.log(error);
       if (error.response.status === 401) {
         alert('권한이 존재하지 않습니다');
         localStorage.removeItem('jwt');
-        location.href = '/';
+        Router.replace('/');
       }
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
-    if (!token) location.href = '/';
+    if (!token) Router.replace('/');
   });
 
   return current === 1 ? (
@@ -75,7 +76,7 @@ const Evaluation = ({ busId = 14 }) => {
         }}
       >
         <div
-          onClick={() => (location.href = '/')}
+          onClick={() => Router.replace('/')}
           style={{ width: '90%', display: 'flex', justifyContent: 'flex-end' }}
         >
           <Close />
@@ -118,7 +119,7 @@ const Evaluation = ({ busId = 14 }) => {
             }}
             onClick={(e) => {
               e.preventDefault();
-              location.href = '/';
+              Router.replace('/');
             }}
           >
             그만 평가할래요

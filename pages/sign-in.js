@@ -1,9 +1,9 @@
-import BusIcon from '../public/BusIcon';
-import OurBusText from '../public/OurBusText';
-import Line from '../public/Line';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { baseURL } from '../pages/api/base';
+import Router from 'next/router';
+import OurBusText from '../public/OurBusText';
+import Line from '../public/Line';
+import { baseURL } from './api/base';
 import MainBusIcon from '../public/MainBusIcon';
 
 const SignIn = () => {
@@ -24,7 +24,7 @@ const SignIn = () => {
       const res = await axios.post(`${baseURL}/user/login`, params);
       localStorage.setItem('jwt', res.data.jwt);
       if (res.status === 200 || res.status === 201) {
-        location.href = '/';
+        Router.replace('/');
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -146,7 +146,7 @@ const SignIn = () => {
             }}
             onClick={(e) => {
               e.preventDefault();
-              location.href = '/sign-up';
+              Router.push('/sign-up');
             }}
           >
             회원가입
