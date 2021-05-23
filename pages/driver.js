@@ -82,13 +82,20 @@ const Driver = () => {
                   justifyContent: 'center',
                 }}
               >
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                  }}
+                >
                   <span style={{ color: '#42B6F8', fontSize: '12px' }}>승차</span>
-                  <div style={{ display: 'flex' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     {<img src='/blind.png' />}
                     <span>{`${el.blindOn}명`}</span>
                   </div>
-                  <div style={{ display: 'flex' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     {<img src='/wheechair.png' />}
                     <span style={{ whiteSpace: 'nowrap' }}>{`${el.wheelchairOn}명`}</span>
                   </div>
@@ -99,10 +106,11 @@ const Driver = () => {
                     marginTop: '7px',
                     display: 'flex',
                     justifyContent: 'space-around',
+                    alignItems: 'center',
                   }}
                 >
                   <span style={{ color: '#FF5858', fontSize: '12px' }}>하차</span>
-                  <div style={{ display: 'flex' }}>
+                  <div style={{ display: 'flex', alignItems: 'cetner' }}>
                     {<img src='/blind.png' />}
                     <span style={{ display: 'flex' }}>{`${el.blindOn}명`}</span>
                   </div>
