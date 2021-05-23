@@ -7,6 +7,7 @@ import 'tailwindcss/tailwind.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/styles/sign-up.css';
 import '../src/styles/font-family.css';
+import WebSocketProvider from '../src/context/websocketContext/WebSocketContex';
 
 function App({ Component, pageProps }) {
   return (
@@ -17,9 +18,11 @@ function App({ Component, pageProps }) {
         <title>OurBus</title>
       </Head>
       <GlobalStyle />
-      <BusProvider>
-        <Component {...pageProps} />
-      </BusProvider>
+      <WebSocketProvider>
+        <BusProvider>
+          <Component {...pageProps} />
+        </BusProvider>
+      </WebSocketProvider>
     </>
   );
 }
