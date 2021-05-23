@@ -20,8 +20,11 @@ const Driver = () => {
   };
 
   useEffect(async () => {
+    const p = document.querySelector('header > p');
     document.querySelector('header').style.background = '#fff';
-    document.querySelector('header > p').style.textAlign = 'center';
+    if (p) {
+      p.style.textAlign = 'center';
+    }
     getRouteData();
   }, []);
 
