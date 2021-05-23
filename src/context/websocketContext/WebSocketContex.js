@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { WebSocket } from 'nextjs-websocket';
 import { DriverContext } from '../driverContext/driverContext';
+import config from '../../../config/config';
 
 export const WebsocketContext = createContext({});
 
@@ -25,7 +26,7 @@ const WebSocketProvider = ({ children }) => {
   return (
     <WebsocketContext.Provider value={store}>
       <WebSocket
-        url='ws://192.168.0.4:8080/'
+        url={config.WS_URL}
         onMessage={handleOnMessage}
         onOpen={() => console.log('websocket connected !')}
       />
