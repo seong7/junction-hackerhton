@@ -45,7 +45,7 @@ const Evaluation = ({ busId = 14 }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.status === 200 || res.status === 201) {
-        alert('평가에 참여해주셔서 감사합니다.');
+        // alert('평가에 참여해주셔서 감사합니다.');
         Router.replace('/');
       }
     } catch (error) {

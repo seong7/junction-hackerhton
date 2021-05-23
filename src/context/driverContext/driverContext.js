@@ -5,9 +5,14 @@ export const DriverContext = createContext({});
 const DriverProvider = ({ children }) => {
   const [driverId, setDriverId] = useState();
 
+  const changeDriverId = (id) => {
+    console.log('changeDriverId : ', id);
+    setDriverId(id);
+  };
+
   const store = {
     driverId,
-    setDriverId,
+    changeDriverId,
   };
 
   return <DriverContext.Provider value={store}>{children}</DriverContext.Provider>;

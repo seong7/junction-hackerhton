@@ -7,17 +7,25 @@ export const WebsocketContext = createContext({});
 
 const WebSocketProvider = ({ children }) => {
   const [data, setData] = useState();
-  const driverContext = useContext(DriverContext);
+  // const driverContext = useContext(DriverContext);
 
-  const handleOnMessage = useCallback(
-    (data) => {
-      if (driverContext.driverId === data.driverId && data.driverId !== undefined) {
-        setData(data);
-        console.log('handleOnMessage:::', data, data.driverId);
+  // console.log('websocket Provider :: ', driverContext.driverId);
+
+  const handleOnMessage = async (data) => {
+    try {
+      if (data) {
+        const res = await JSON.parse(data);
+        // console.log('driverContext.driverId ::', driverContext.driverId);
+        const driverId = window.localStorage.getItem('driverId');
+
+        if (Number(driverId) === res.driverId && res.driverId !== undefined) {
+          setData(res);
+        }
+      } else {
+        console.log(' else : ', data);
       }
-    },
-    [driverContext.driverId],
-  );
+    } catch (e) {}
+  };
 
   const store = {
     data,

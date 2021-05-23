@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import OurBusText from '../public/OurBusText';
 import Line from '../public/Line';
 import { baseURL } from './api/base';
 import MainBusIcon from '../public/MainBusIcon';
+import { DriverContext } from '../src/context/driverContext/driverContext';
 
 const SignIn = () => {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+  const driverContext = useContext(DriverContext);
 
   const handleChangeEmail = (value) => setForm({ ...form, email: value });
   const handleChangePassword = (value) => setForm({ ...form, password: value });
@@ -24,7 +26,16 @@ const SignIn = () => {
       const res = await axios.post(`${baseURL}/user/login`, params);
       localStorage.setItem('jwt', res.data.jwt);
       if (res.status === 200 || res.status === 201) {
-        Router.replace('/');
+        if (res.data.role === 'COMPANY') {
+          // console.log('login - driverID : ', res.data.driverId);
+          // driverContext.setDriverId(res.data.driverId);
+          // console.log('login- set 이후 :: ', driverContext.driverId);
+          window.localStorage.setItem('driverId', res.data.driverId);
+          Router.replace('/driver');
+        } else {
+          // driverContext.setDriverId(' ');
+          Router.replace('/');
+        }
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -96,6 +107,7 @@ const SignIn = () => {
                 height: '57px',
                 marginBottom: '10px',
                 paddingLeft: '10px',
+                fontSize: '20px',
               }}
               onChange={(e) => handleChangeEmail(e.target.value)}
             />
@@ -108,6 +120,7 @@ const SignIn = () => {
                 width: '291px',
                 height: '57px',
                 paddingLeft: '10px',
+                fontSize: '20px',
               }}
               type='password'
               onChange={(e) => handleChangePassword(e.target.value)}

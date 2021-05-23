@@ -1,13 +1,22 @@
-import { useEffect, useState } from 'react';
-import { MainLayout } from '../src/components/Layout/MainLayout';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { MainLayout } from '../src/components/Layout/MainLayout';
 import { baseURL } from './api/base';
 import BusIcon from '../public/BusIcon';
 import Ellipse from '../public/Ellipse';
-import BlindIcon from '../public/BlindIcon';
+import { DriverModal } from '../src/components/Layout/DriverModal';
+import { WebsocketContext } from '../src/context/websocketContext/WebSocketContex';
 
 const Driver = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const websocketContext = useContext(WebsocketContext);
   const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (websocketContext.data !== undefined) {
+      setIsModalVisible(true);
+    }
+  }, [websocketContext.data]);
 
   const getRouteData = async () => {
     const token = localStorage.getItem('jwt');
@@ -30,7 +39,10 @@ const Driver = () => {
 
   return (
     <div style={{ paddingBottom: '20px' }}>
-      <MainLayout withHeaderBorder headerText='643'>
+      {isModalVisible && (
+        <DriverModal setModalVisible={setIsModalVisible} data={websocketContext.data} />
+      )}
+      <MainLayout withHeaderBorder headerText='641'>
         {data &&
           data.length > 0 &&
           data.map((el) => (
@@ -50,28 +62,24 @@ const Driver = () => {
               key={el.id}
               data-current={el.currentLocation}
             >
-              {
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: '-27px',
-                    display: el.currentLocation ? '' : 'none',
-                  }}
-                >
-                  <BusIcon color='blue' />
-                </div>
-              }
-              {
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: '-9px',
-                    display: el.currentLocation ? '' : 'none',
-                  }}
-                >
-                  <Ellipse />
-                </div>
-              }
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '-27px',
+                  display: el.currentLocation ? '' : 'none',
+                }}
+              >
+                <BusIcon color='blue' />
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '-9px',
+                  display: el.currentLocation ? '' : 'none',
+                }}
+              >
+                <Ellipse />
+              </div>
               {el.name}
               <div
                 style={{
@@ -85,11 +93,11 @@ const Driver = () => {
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                   <span style={{ color: '#42B6F8', fontSize: '12px' }}>승차</span>
                   <div style={{ display: 'flex' }}>
-                    {<img src='/blind.png' />}
+                    <img src='/blind.png' />
                     <span>{`${el.blindOn}명`}</span>
                   </div>
                   <div style={{ display: 'flex' }}>
-                    {<img src='/wheechair.png' />}
+                    <img src='/wheechair.png' />
                     <span style={{ whiteSpace: 'nowrap' }}>{`${el.wheelchairOn}명`}</span>
                   </div>
                 </div>
@@ -103,11 +111,11 @@ const Driver = () => {
                 >
                   <span style={{ color: '#FF5858', fontSize: '12px' }}>하차</span>
                   <div style={{ display: 'flex' }}>
-                    {<img src='/blind.png' />}
+                    <img src='/blind.png' />
                     <span style={{ display: 'flex' }}>{`${el.blindOn}명`}</span>
                   </div>
                   <div style={{ display: 'flex' }}>
-                    {<img src='/wheechair.png' />}
+                    <img src='/wheechair.png' />
                     <span
                       style={{ display: 'flex', whiteSpace: 'nowrap' }}
                     >{`${el.wheelchairOn}명`}</span>
