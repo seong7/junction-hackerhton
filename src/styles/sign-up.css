@@ -6,12 +6,23 @@
     opacity: 1;
   }
 }
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
 .fade-in {
   animation: fadeInAnimation ease 1s;
 }
 .fade-in-fast {
   animation: fadeInAnimation ease 0.5s;
+}
+.fade-out {
+  animation: fadeOutAnimation ease 1s;
 }
 
 .placeholder::placeholder {
