@@ -3,9 +3,9 @@ import axios from 'axios';
 import Router from 'next/router';
 import { MainLayout } from '../src/components/Layout/MainLayout';
 import { Button } from '../src/elements/Button/Button';
-import { baseURL } from './api/base';
 import Ellipse from '../public/Ellipse';
 import BusIcon from '../public/BusIcon';
+import config from '../config/config';
 
 const positions = () => {
   const [data, setData] = useState(null);
@@ -30,7 +30,7 @@ const positions = () => {
 
   const getRouteData = async () => {
     const token = localStorage.getItem('jwt');
-    const { data } = await axios.get(`${baseURL}/bus/location/1`, {
+    const { data } = await axios.get(`${config.BASEURL}/api/bus/location/1`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -45,7 +45,7 @@ const positions = () => {
 
   const handleGetOff = async () => {
     const token = localStorage.getItem('jwt');
-    const res = await axios.delete(`${baseURL}/bus/1/${next.id}/getOff`, {
+    const res = await axios.delete(`${config.BASEURL}/api/bus/1/${next.id}/getOff`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,7 +68,7 @@ const positions = () => {
   return (
     <MainLayout
       withHeaderBorder
-      headerText='643'
+      headerText='641'
       footer={
         <>
           <Button type='button' text='이번에 내려요!' onClick={() => handleModal(true)} />

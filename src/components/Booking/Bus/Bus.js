@@ -23,21 +23,14 @@ export const Bus = () => {
     };
   }, []);
 
-  const openConfirmModal = useCallback(() => {
+  const openConfirmModal = useCallback(async () => {
+    const jwt = window.localStorage.getItem('jwt');
+    if (jwt === null) await Router.replace('/');
+
     setButtonClicked(true);
     setTimeout(() => {
       setIsModalVisible(true);
-    }, 2000);
-    setTimeout(() => {
-      setButtonClicked(false);
-    }, 3000);
-  }, []);
-
-  const bookTheBus = useCallback(async () => {
-    const jwt = window.localStorage.getItem('jwt');
-    if (jwt === null) await Router.replace('/');
-    // console.log(jwt);
-    // console.log('selectedBusId ::::', selectedBusId);
+    }, 1000);
 
     try {
       const res = await axios.post(
@@ -50,11 +43,18 @@ export const Bus = () => {
         },
       );
       // console.log(res);
-      Router.push('/positions');
     } catch (e) {
       console.error(e);
     }
-  }, [selectedBusId, busContext.stationId]);
+
+    setTimeout(() => {
+      setButtonClicked(false);
+    }, 3000);
+  }, [selectedBusId, busContext.station]);
+
+  const bookTheBus = useCallback(async () => {
+    Router.push('/positions');
+  }, []);
 
   return (
     <MainLayout
@@ -84,8 +84,8 @@ export const Bus = () => {
       </div>
       {isModalVisible && (
         <BottomModal
-          title='무사히 탑승하셨나요?'
-          contentText={['아래 버튼을 누르시면', '무사히 내릴 때까지 안내해드릴게요.']}
+          title='기사님에게 알림이 전송되었습니다.'
+          contentText={[' ', '탑승 후, 아래 버튼을 누르시면', '무사히 내릴 때까지 안내해드릴게요.']}
           submitText='네'
           cancelText='아니요'
           onCancel={() => setIsModalVisible(false)}

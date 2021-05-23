@@ -271,6 +271,8 @@ const Evaluation = ({ busId = 14 }) => {
                 height: '150px',
                 border: '3px solid #42B6F8',
                 borderRadius: '10px',
+                padding: '10px',
+                fontSize: '20px',
               }}
               onChange={handleChangeMemo}
             />
