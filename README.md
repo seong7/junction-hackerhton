@@ -31,3 +31,6 @@ Open [http://localhost:3000](http://localhost:3000)
 ## Tech Stack
 
 [Next js](https://nextjs.org/)
+
+## Backend Repository
+[link](https://github.com/seong7/junction-hackerhton)
